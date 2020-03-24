@@ -1,0 +1,26 @@
+# linie rozpoczynające się '#' są ignorowane (komentarze)
+# -> (p(a)) ⊙ liść otwarty; STOP 2 SPEŁNIALNA
+a p/1
+# -> (∀ Z ((p(Z)) ∧ (¬ (p(Z))))) ⊗ liść domknięty; STOP 1 NIESPEŁNIALNA
+Z Z p/1 Z p/1 NOT AND FORALL
+# -> (∃ Z (p(Z))) ⊙ liść otwarty; STOP 2
+Z Z p/1 EXISTS
+# -> (¬ ((∀ Z (q(Z))) → (∀ X ((p(X)) ∨ (q(X)))))) ⊗ liść domknięty; STOP 1
+Z Z q/1 ∀ X X p/1 X q/1 ∨ ∀ → ¬
+# -> ∀x∃y ¬[p(x) → p(y)]
+X Y X p/1 Y p/1 → ¬ ∃ ∀
+# -> ((p(a)) ∨ (p(b))) ⊙ liść otwarty; STOP 2, ⊙ liść otwarty; STOP 2
+a p/1 b p/1 ∨
+# -> ∃x p(x) → p(a) ⊙ liść otwarty; STOP 2, ⊙ liść otwarty; STOP 2
+X X p/1 ∃ a p/1 →
+# -> ¬[[p(a) → ∃x p(x)] ∧ ∃x ∀y [p(x) → p(y)]] ⊗ liść domknięty; STOP 1, ⊗ liść domknięty; STOP 1 NIESPEŁNIALNA
+a p/1 X X p/1 ∃ → X Y X p/1 Y p/1 → ∀ ∃ ∧ ¬
+Z X X a f/2 p/1 ∃ Y Y Z f/1 p/2 FORALL → FORALL
+X X p/1 EXISTS a p/1 →
+X X p/1 X X q/1 FORALL OR FORALL
+#X X p/1 X X p/1 EXISTS IMPLIES FORALL NOT
+X X p/1 NOT X q/1 NOT AND EXISTS
+X X p/1 FORALL
+a p/1 Z Z p/1 Z p/1 NOT AND FORALL OR
+X X p/1 FORALL
+X X X p/1 FORALL EXISTS
